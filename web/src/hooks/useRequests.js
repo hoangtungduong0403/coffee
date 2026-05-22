@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-
+import api  from "../utils/axios";
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 export function useRequests() {
@@ -14,8 +14,8 @@ export function useRequests() {
       try {
         setLoading(true);
 
-        const res = await fetch(`${BASE_URL}/requests`);
-        const data = await res.json();
+        const res = await api.get(`${BASE_URL}/requests`);
+        const data = await res.data || [];
 
         setRequests(data);
       } catch (err) {
